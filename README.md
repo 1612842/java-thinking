@@ -338,6 +338,60 @@ Nhưng không phải vì thế mà các tham số này không có ảnh hưởng
 - Thread-safety trong Java là gì? Làm sao để đạt được Thread-safety? (tham khảo: [Thread-Safety](https://www.baeldung.com/java-thread-safety))
 - Tìm hiểu về Thread Pool, Executors. (tham khảo: [Thread Pool](https://www.baeldung.com/thread-pool-java-and-guava))
 
+#### Thread, multithreading & concurrency
+
+**Thread** (luồng) về cơ bản là một tiến trình con (sub-process). Một đơn vị xử lý nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt. Trong Java, các luồng được quản lý bởi máy ảo Java (JVM).
+
+**Multi-thread** (đa luồng) là một tiến trình thực hiện nhiều luồng đồng thời. Một ứng dụng Java ngoài luồng chính có thể có các luồng khác thực thi đồng thời làm ứng dụng chạy nhanh và hiệu quả hơn.
+
+VD: Trình duyệt web hay các chương trình chơi nhạc là 1 ví dụ điển hình về đa luồng.
+
++ Khi duyệt 1 trang web, có rất nhiều hình ảnh, CSS, javascript… được tải đồng thời bởi các luồng khác nhau.
+
++ Khi play nhạc, chúng ta vẫn có thể tương tác được với nút điều khiển như: Play, pause, next, back … vì luồng phát nhạc là luồng riêng biệt với luồng tiếp nhận tương tác của người dùng.
+
+**Ưu điểm của đa luồng**
+-   Nó không chặn người sử dụng vì các luồng là độc lập và bạn có thể thực hiện nhiều công việc cùng một lúc.
+Mỗi luồng có thể dùng chung và chia sẻ nguồn tài nguyên trong quá trình chạy, nhưng có thể thực hiện một cách độc lập.
+-   Luồng là độc lập vì vậy nó không ảnh hưởng đến luồng khác nếu ngoại lệ xảy ra trong một luồng duy nhất.
+-   Có thể thực hiện nhiều hoạt động với nhau để tiết kiệm thời gian. Ví dụ một ứng dụng có thể được tách thành : luồng chính chạy giao diện người dùng và các luồng phụ nhiệm gửi kết quả xử lý đến luồng chính.
+
+**Nhược điểm**
+-   Càng nhiều luồng thì xử lý càng phức tạp.
+-   Xử lý vấn đề về tranh chấp bộ nhớ, đồng bộ dữ liệu khá phức tạp.
+-   Cần phát hiện tránh các luồng chết (dead lock), luồng chạy mà không làm gì trong ứng dụng cả.
+
+**Vòng đời của 1 thread trong Java**
+
+![](https://gpcoder.com/wp-content/uploads/2018/02/multithread-lifecylce.jpg)
+
+Vòng đời của thread trong java được kiểm soát bởi JVM. Java định nghĩa các trạng thái của luồng trong các thuộc tính static của lớp Thread.State:
+
+-   NEW : Đây là trạng thái khi luồng vừa được khởi tạo bằng phương thức khởi tạo của lớp Thread nhưng chưa được start(). Ở trạng thái này, luồng được tạo ra nhưng chưa được cấp phát tài nguyên và cũng chưa chạy. Nếu luồng đang ở trạng thái này mà ta gọi các phương thức ép buộc stop,resume,suspend … sẽ là nguyên nhân sảy ra ngoại lệ IllegalThreadStateException .
+-   RUNNABLE : Sau khi gọi phương thức start() thì luồng test đã được cấp phát tài nguyên và các lịch điều phối CPU cho luồng test cũng bắt đầu có hiệu lực. Ở đây, chúng ta dùng trạng thái là Runnable chứ không phải Running, vì luồng không thực sự luôn chạy mà tùy vào hệ thống mà có sự điều phối CPU khác nhau.
+-   BLOCKED : Đây là 1 dạng của trạng thái “Not Runnable”. Thread chờ một monitor để unlock một đối tượng mà nó cần.
+-   WAITING : Thread chờ không giới hạn cho đến khi một luồng khác đánh thức nó.
+-   TIMED_WAITING : Thread chờ trong một thời gian nhất định, hoặc là có một luồng khác đánh thức nó.
+-   BLOCKED: Đây là trạng thái khi thread vẫn còn sống, nhưng hiện tại không được chọn để chạy.
+-   TERMINATED : Một thread ở trong trạng thái terminated hoặc dead khi phương thức run() của nó bị thoát.
+
+**Concurrency**
+
+Concurrency không chỉ là một khái niệm cho thiết bị có chip nhiều nhân. Trong những thiết bị đơn nhân, chúng ta vẫn có thể xử lý được đa luồng dựa vào cơ chế time-slicing để chuyển ngữ cảnh.
+
+![](http://www.dietergalea.com/images/parallel_sequential_concurrent.jpg)
+
+Concurrency (tính đồng thời) là khả năng xử lí nhiều tác vụ cùng 1 lúc. Ví dụ, khi bạn đang lướt web, có thể bạn đang download file trong khi đang nghe nhạc, đồng thời đang scroll trang. Nếu trình duyệt không thể thực hiện chúng cùng 1 lúc, bạn sẽ phải đợi đến khi mọi file download xong, mới có thể nghe nhạc, rồi mới có thể scroll. Điều này nghe rất khó chịu phải không nào?
+
+![](https://s3-ap-southeast-1.amazonaws.com/kipalog.com/zss1fjcca6_concurrency.jpg)
+
+Từ biểu đồ trên, chúng ta có thể thấy rằng, CPU 1 nhân phân chia thời gian làm việc dựa trên độ ưu tiên của cùng tác vụ. Ví dụ, khi đang scroll trang, việc nghe nhạc sẽ có độ ưu tiên thấp hơn, nên có thể nhạc của bạn sẽ bị dừng do đường truyền kém, nhưng bạn vẫn có thể kéo trang lên xuống.
+
+![](https://s3-ap-southeast-1.amazonaws.com/kipalog.com/6cpbibh0yq_parallelism.jpg)
+
+Có vài điểm khác biệt giữa concurrency và parallelism. Concurrency xử lí nhiều 1 tác vụ 1 lúc, còn parallelism là thực hiện nhiều tác vụ cùng 1 lúc. 
+
+
 #### Thread-safety trong Java là gì? Làm sao để Thread-safety
 
 Java hỗ trợ multithreading bằng run bytecode một cách đồng thời trong separate worker threads, JVM có khả năng cải thiện hiện năng ứng dụng
@@ -723,7 +777,367 @@ CPM (Connection pool Manager) là trình quản lý vùng kết nối, một khi
 
 #### Caching, caching guava, caching redis
 
+##### Caching
+
+>https://toidicodedao.com/2018/12/18/caching-la-gi-caching-tang-toc-do-tai/
+
+**Cache** là nơi chứa dữ liệu, nhằm giúp tăng tốc độ truy xuất dữ liệu ở những lần sau.
+
+**Caching** là cách ta hi sinh memory/disk để giảm CPU time, hoặc network time nhằm tăng tốc độ hoặc giảm tải hệ thống.
+
+**Ưu điểm**
+
+-   Vô cùng hiệu quả: 
+    -   Giải quyết được vấn đề performance + bottleneck
+    -   Giả sử mỗi giây bạn nhận được 100 request, mỗi request sẽ mất 1s để chờ database query xử lý. Database sẽ dễ bị quá tải, người dùng thì chờ mòn râu.
+    -   Sử dụng caching để cache kết quả query vào RAM, lúc này thời gian tuy xuất chỉ còn tầm 50-100ms, lại không phải cần truy cập database. Hệ thống được giảm tải, còn người dùng lại nhận được kết quả nhanh hơn rất nhiều nhiều.
+
+    ![](https://toidicodedao.files.wordpress.com/2018/12/caching-database-caching-diagram-70a0c9d62877d7a32bf1024d00561eb5b560a45d.png?w=394&h=236)
+
+-   Đơn giản, dễ hiểu, dễ implement
+    -   Kể cả khi không dùng thư viện, chỉ cần dùng HashMap dạng Key-Value là bạn đã có thể implement caching một cách đơn giản rồi.
+    -   Trong các hệ thống cũng vậy, khi thấy một hàm chạy lâu, tốn nhiều tài nguyên, đôi khi chỉ cần implement caching cho hàm đó là hệ thống đã chạy nhanh ngay, không ảnh hưởng đến các thành phần khác của hệ thống.
+-   Support tận răng
+    -   Do phổ biến nên hầu như các ngôn ngữ đều có những thư viện hỗ trợ caching cả.
+    -   Trong các hệ thống lớn, người ta có những cache server riêng như Redis, Memcache. Các server cache này có performance vô cùng mạnh mẽ, hỗ trợ backup v…v nên rất dễ tích hợp vào hệ thống.
+
+        ![](https://toidicodedao.files.wordpress.com/2018/12/memcached-vs-redis-which-one-to-pick-for-large-web-app.jpg?w=474&h=133)
+
+**Vấn đề của caching**
+
+-   Stale data - stale cache: nếu không được update thường xuyên   
+-   Để giải quyết vấn đề trên, ta phải invalidate cache. Tức là, khi dữ liệu thay đổi, ta phải xóa dữ liệu trong cách, tính toán dữ liệu mới. 
+-   Nếu để cache quá lâu thì dữ liệu sẽ bị stale, nếu refresh quá thường xuyên thì cache trở nên … vô dụng (vì tự tính luôn cho rồi). 
+-   Ngoài ra, ta còn phải hiểu sẽ business logic hoặc logic của chương trình mới biết được nên cache những gì, cache mất bao lâu nữa!
+
+**Thực tế**
+
+Trong thực tế, caching được sử dụng ở rất nhiều tầng. Thường developer chúng ta sẽ quan tâm caching ở tầm application (vì chúng ta code ở phần này):
+-   Trong CPU có caching để tăng tốc độ xử lý
+-   SQL Server cũng có caching để lưu query plan
+-   Giao thức HTTP hỗ trợ trình duyệt cache các tài nguyên từ server, thông qua header Cache-Control. Nhờ header này mà web thegioididong load nhanh, đỡ phải tải lại resource.
+-   Trong lập trình, các kĩ thuật như memoization, dynamic programming cũng sử dụng cache để tăng tốc độ xử lý.
+-   Trong các ứng dụng đơn giản, ta thường sử dụng các thư viện cache để lưu dữ liệu vào memory của server.
+-   Trong các ứng dụng lớn, có nhiều application server, người ta thường lưu trữ cache trong một server riêng, sử dụng Memcache hoặc Redis
+-   Bản thân CDN – Content Delivery Network cũng là một dạng cache, đưa static resource như ảnh, CSS, JS đến server nằm gần người dùng hơn (nhằm tăng tốc độ tải).
+
+##### Caching guava
+
+>http://thachleblog.com/cache-voi-guava/
+
+![](http://thachleblog.com/wp-content/uploads/2016/11/guava-mini-logo.jpg)
+
+Guava là một thư viện mã nguồn mở Java, được phát triển bởi Google. Guava cung cấp nhiều methods hỗ trợ cho xử lý String, Collections, Caching, Concurrency
+
+Guava hỗ trợ in – memory cache, lưu trữ dữ liệu dưới dạng cặp dữ liệu key – value.  Guava chủ yếu hỗ trợ 2 method cache chính đó là LoadingCache và Cache:
+-   LoadingCache: tự động load dữ liệu vào cache nếu trong cache chưa có dữ liệu
+
+-   Cache: chúng ta phải thực hiện các thao tác kiểm tra sự tồn tại của key trước khi put value vào cache, hay get cache
+
+**Implement**
+
+Class StudentGuavaCache, chúng ta có thể override method load hoặc loadAll để add dữ liệu vào cache
+
+```java
+import java.util.concurrent.TimeUnit;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+public class StudentGuavaCache {
+	private static LoadingCache<Integer, Student> cache;
+    static {
+		cache = CacheBuilder.newBuilder()
+		       .maximumSize(100) //set size
+		       .expireAfterWrite(10, TimeUnit.MINUTES) //set time expire
+		       .build(
+		           new CacheLoader<Integer, Student>() {
+						@Override
+						public Student load(Integer id) throws Exception {
+							return getEmployeeById(id);
+						}
+		           }
+		       );
+    }
+    public static LoadingCache<Integer, Student> getLoadingCache() {
+		return cache;
+    }
+    // this method demo get data from database or file
+	public static Student getEmployeeById(int id) {
+		System.out.println("--Executing getStudent--");
+		Student student = new Student(1, "Thach Le");
+		return student;
+	}
+}
+class Student {
+	private int id;
+	private String name;
+	public Student(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+```
+
+Class test
+
+```java
+import java.util.concurrent.ExecutionException;
+import com.google.common.cache.LoadingCache;
+public class GuavaTest {
+	public static void main(String[] args) {
+		GuavaTest guavaTest = new GuavaTest();
+		try {
+			// Access student first time with id 1, getStudentUsingGuava() will
+			// be called.
+			System.out.println(guavaTest.getStudentUsingGuava(1).getName());
+			System.out.println("------------------------");
+ 
+			// The second time we get student, data will cache
+			System.out.println(guavaTest.getStudentUsingGuava(1).getName());
+		} catch (ExecutionException e) {
+		}
+	}
+ 
+	private Student getStudentUsingGuava(int id) throws ExecutionException {
+		LoadingCache<Integer, Student> cache = StudentGuavaCache.getLoadingCache();
+		System.out.println("Cache Size:" + cache.size());
+		return cache.get(id);
+	}
+ 
+}
+```
+
+Ở ví dụ trên, ta thực hiện khởi tạo object Student sau đó gọi thông qua cache. Ở trên là demo cách cơ bản nhất là load dữ liệu vào cache bằng cách override method load(). Thông thường chúng ta sẽ dùng các phương thức put() để thêm element vào cache và sau đó check và get() để lấy value.
+
+Kết quả
+
+![](http://thachleblog.com/wp-content/uploads/2016/11/result.png)
+
+##### Caching redis
+
+![](https://nukeviet.vn/uploads/news/2016_07/redis.png)
+
+Redis là hệ thống lưu trữ key-value với rất nhiều tính năng và được sử dụng rộng rãi. Redis nổi bật bởi việc hỗ trợ nhiều cấu trúc dữ liệu cơ bản (hash, list, set, sorted set, string), đồng thời cho phép scripting bằng ngôn ngữ lua. Bên cạnh lưu trữ key-value trên RAM với hiệu năng cao, redis còn hỗ trợ lưu trữ dữ liệu trên đĩa cứng (persistent redis) cho phép phục hồi dữ liệu khi gặp sự cố. Ngoài tính năng replicatation (sao chép giữa master-client), tính năng cluster (sao lưu master-master) cũng đang được phát triển . Để sử dụng một cách hiệu quả những tính năng redis hỗ trợ cũng như vận hành redis với hiệu suất cao nhất thì việc am hiểu hệ thống lưu trữ này là điều không thể thiếu.
+
+**Đặc điểm**
+
+-   Redis hỗ trợ thêm mới, cập nhật và loại bỏ dữ liệu nhanh chóng
+-   Redis có những đặc điểm giống như Memcached như:
+    -   Lưu trữ dạng key /value.
+    -   Tất cả data được lưu trên Memory(RAM)
+    -   Key có thể hết hạn(expire) hoặc không
+    -   Nhanh(Fast), nhẹ nhàng(light-weight)
+-   Redis có thêm nhiều đặc điểm, chức năng khác mang lại lợi ích khi sử dụng và triển khai:
+    -   Persistence
+    -   Truy vấn theo Key
+    -   Hỗ trợ counters dữ liệu kiểu integer
+    -   Cấu trúc dữ liệu cấp cao
+    -   Nhân rộng master-slave
+-   Redis lấy và nạp dữ liệu trên Memory(RAM), nhưng tại một thời điểm thì dữ liệu có thể được lưu trữ trên disk(Data in memory, but saved on disk).
+-   Điểm khác biệt dễ nhận thấy của Redis là: Key là một string nhưng value thì không giới hạn ở một string mà có thể là List, Sets, Sorted sets, ….
+-   Redis hỗ trợ “Multiple database” với nhiều commands để tự động remove key từ một database tới database khác.
+-   Mặc định thì DB 0 sẽ được lựa chọn cho mỗi lần kết nối(connection), nhưng khi sử dụng lệnh SELECT(SELECT command) thì nó có thể select/create một database khác. Thao tác MOVE(MOVE operation) có thể chuyển một item từ một DB tới DB khác một cách tự động.
+-   Redis rất nhanh trong các thao tác lấy và nạp dữ liệu do redis hỗ trợ nhiều lệnh mang tính chất chuyên biệt.
+-   Redis hỗ trợ mở rộng master-slave nếu chúng ta muốn sự an toàn hoặc mở rộng, co giãn trong việc lưu trữ data
+
+**Redis in Java**
+
+Tạo project maven và add dependency như sau:
+
+```xml
+<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>2.9.0</version>
+</dependency>
+```
+
+File demo
+
+```java
+public class MyApp {
+	public static void main(String[] args) {
+		// Connecting to Redis server on localhost
+		Jedis jedis = new Jedis("127.0.0.1");
+
+		System.out.println("Connection to server sucessfully");
+
+		// store data in redis list
+		jedis.rpush("KEY_A", "Redis");
+		jedis.rpush("KEY_A", "Mongodb");
+		jedis.rpush("KEY_A", "Mysql");
+		// Get the stored data and print it
+		List<String> list = jedis.lrange("KEY_A", 0, -1);
+
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+	}
+}
+```
+
+>https://nukeviet.vn/vi/news/Tin-tuc/nukeviet-4-1-se-ho-tro-redis-de-cache-435.html
+
+>https://www.tutorialspoint.com/redis/
+
 #### Khái niệm protocol trong networking, http, websocket, gRPC
+
+##### **Protocol**
+
+-   Việc trao đổi thông tin dù là đơn giản nhất cũng phải tuân theo những nguyên tắc nhất định. Đơn giản như hai người nói chuyện với nhau, muốn cho cuộc nói chuyện có kết quả thì ít nhất cả hai người phải ngầm tuân thủ quy ước : Khi một người nói thì người kia phải biết lắng nghe và ngược lại. Việc truyền thông trên mạng cũng vậy. Cần có các quy tắc, quy ước truyền thông về nhiều mặt : khuôn dạng cú pháp của dữ liệu, các thủ tục gửi, nhận dữ liệu, kiểm soát hiệu quả nhất chất lượng truyền thông tin. Tập hợp những quy tắc, quy ước truyền thông đó được gọi là giao thức của mạng (protocol).
+
+-   Một tập hợp tiêu chuẩn để trao đổi thông tin giữa hai hệ thống máy tính hoặc hai thiết bị máy tính với nhau được gọi là giao thức. Các giao thức còn được gọi là các nghi thức hoặc định ước của máy tính.
+
+-   Những giao thức là những cách khác nhau của truyền thông qua mạng Internet.
+
+-   TCP và UDP là những giao thức thông dụng nhất. Giao thức ICMP cũng được dùng nhưng chủ yếu để các thiết bị mạng có thể kiểm tra trạng thái của những thiết bị mạng khác.
+
+-   Những giao thức khác nhau là những ý tưởng cho những kiểu truyền thông khác nhau.
+
+##### **HTTP**
+
+**HTTP** (**H**yper**T**ext **T**ransfer **P**rotocol - Giao thức truyền tải siêu văn bản) là một trong các giao thức chuẩn về mạng Internet, được dùng để liên hệ thông tin giữa Máy cung cấp dịch vụ (Web server) và Máy sử dụng dịch vụ (Web client), là giao thức Client/Server dùng cho World Wide Web – WWW
+
+HTTP là một giao thức ứng dụng của bộ giao thức TCP/IP (các giao thức nền tảng cho Internet).
+
+Sơ đồ hoạt động:
+
+![](https://images.viblo.asia/7da268f1-718b-465c-87df-700e766df185.png)
+
+HTTP hoạt động dựa trên mô hình Client – Server. Trong mô hình này, các máy tính của người dùng sẽ đóng vai trò làm máy khách (Client). Sau một thao tác nào đó của người dùng, các máy khách sẽ gửi yêu cầu đến máy chủ (Server) và chờ đợi câu trả lời từ những máy chủ này.
+
+HTTP là một **stateless protocol**. Hay nói cách khác, request hiện tại không biết những gì đã hoàn thành trong request trước đó.
+
+![](https://images.viblo.asia/1596a7ea-09cc-4a36-82ac-48768e0cb24f.png)
+
+Các thành phần chính:
+-   HTTP - Requests:
+    -   HTTP Request Method: Là phương thức để chỉ ra hành động mong muốn được thực hiện trên tài nguyên đã xác định.
+    -   Cấu trúc:
+        -   Một Request-line = Phương thức + URI–Request + Phiên bản HTTP . Giao thức HTTP định nghĩa một tập các giao thức GET, POST, HEAD, PUT ... Client có thể sử dụng một trong các phương thức đó để gửi request lên server.
+        -   Có thể có hoặc không các trường header
+        -   Một dòng trống để đánh dấu sự kết thúc của các trường Header.
+        -   Request Header Fields: Các trường header cho phép client truyền thông tin bổ sung về yêu cầu, và về chính client, đến server. Một số trường: Accept-Charset, Accept-Encoding, Accept-Language, Authorization, Expect, From, Host, …
+        -   Tùy chọn một thông điệp
+    -   Khi request đến server, server thực hiện một trong 3 hành động sau:
+        -   Server phân tích request nhận được, maps yêu cầu với tập tin trong tập tài liệu của server, và trả lại tập tin yêu cầu cho client.
+        -   Server phân tích request nhận được, maps yêu cầu vào một chương trình trên server, thực thi chương trình và trả lại kết quả của chương trình đó.
+        -   Request từ client không thể đáp ứng, server trả lại thông báo lỗi. 
+
+        ![](https://images.viblo.asia/87ee0c1c-abac-4d08-973e-e8bae533cbf0.png)
+    -   1 số HTTP Request method thường dùng: 
+    ![](https://images.viblo.asia/b986dced-c499-4051-8efb-5ea5d9b93c02.png)
+-   HTTP - Responses
+    -   Cấu trúc của một HTTP response:
+        -   Một Status-line = Phiên bản HTTP + Mã trạng thái + Trạng thái
+        -   Có thể có hoặc không có các trường header
+        -   Một dòng trống để đánh dấu sự kết thúc của các trường header
+        -   Tùy chọn một thông điệp
+    -   Mã trạng thái: Thông báo về kết quả khi nhận được yêu cầu và xử lí bên server cho client.
+        -   1xx: Thông tin (100 -> 101)
+        -   2xx: Thành công (200 -> 206)
+        -   3xx: Sự điều hướng lại (300 -> 307)
+        -   4xx: Lỗi phía Client (400 -> 417)
+        -   5xx: Lỗi phía Server (500 -> 505)
+
+        ![](https://images.viblo.asia/8414d386-f4e5-4b9c-aded-d3b379dc7c20.png)
+
+##### **Websocket**
+
+Trong mô hình HTTP bạn thấy rằng máy khách sẽ yêu cầu tài nguyên tới máy chủ và máy chủ phản hồi kết quả, như vậy việc trao đổi dữ liệu luôn luôn được máy khách yêu cầu trước và máy chủ không thể gửi bất kỳ dữ liệu tới máy khách trước nếu máy khách chưa yêu cầu.
+
+![](media/http.png)
+
+WebSocket ra đời nhằm giải quyết những hạn chế của bài toán trên bằng cách cung cấp một kênh giao tiếp song song giữa máy khách và máy chủ. Lúc này máy khách và máy chủ có thể trao đổi dữ liệu cho nhau bất cứ lúc nào trong khi kết nối đang mở và cũng có thể đóng kết nối bất cứ lúc nào.
+
+![](media/websocket.png)
+
+**Cấu trúc Websocket**
+
+Giao thức WebSocket bao gồm hai phần là bắt tay (handshake) và truyền dữ liệu (data transfer). Máy khách khởi tạo handshake bằng cách gửi một yêu cầu tới WebSocket bằng URI mà máy chủ cung cấp và chờ máy chủ xác nhận. Sau khi quá trình handshake thành công thì lúc này máy khách và máy chủ có thể chủ động trao đổi dữ liệu hai chiều cho nhau.
+
+WebSocket hỗ trợ trao đổi truyền tải dữ liệu dạng văn bản (được mã hóa dưới dạng UTF-8) hoặc nhị phân. Chuẩn giao thức của Websocket là ws:// (chuẩn thông thường) hoặc wss:// (tương tự https://). Ví dụ như sau:
+
+
+>ws://host:port/path?query
+
+>wss://host:port/path?query
+
+
+```
+Như vậy ws thể hiện một kết nối WebSocket không được mã hóa và wss thể hiện cho một kết nối được mã hóa. Cổng mặc định là 80 cho các kết nối không được mã hóa và 443 cho các kết nối được mã hóa.
+```
+
+**Khởi tạo trong Java**
+
+Gởi thông điệp đến tất cả các máy khách được kết nối như sau:
+
+```java
+@ServerEndpoint("/send")
+public class EchoAllEndpoint {
+   @OnMessage
+   public void onMessage(Session session, String msg) {
+      try {
+         for (Session sess : session.getOpenSessions()) {
+            if (sess.isOpen())
+               sess.getBasicRemote().sendText(msg);
+         }
+      } catch (IOException e) { ... }
+   }
+}
+```
+Nhận thông điệp được gởi đến:
+
+```java
+@ServerEndpoint("/receive")
+public class ReceiveEndpoint {
+   @OnMessage
+   public void textMessage(Session session, String msg) {
+      System.out.println("Text message: " + msg);
+   }
+   @OnMessage
+   public void binaryMessage(Session session, ByteBuffer msg) {
+      System.out.println("Binary message: " + msg.toString());
+   }
+   @OnMessage
+   public void pongMessage(Session session, PongMessage msg) {
+      System.out.println("Pong message: " + msg.getApplicationData().toString());
+   }
+}
+```
+
+##### **gRPC**
+
+gRPC là một framework RPC (viết tắt của Remote Procedure Call) được phát triển bởi Google, nhằm tối ưu hoá và tăng tốc việc giao tiếp giữa các service với nhau trong kiến trúc microservice.
+
+gRPC đã thu hút sự quan tâm của nhiều nhà phát triển microservice trong những năm gần đây vì những điễm nỗi bật sau:
+-   Mã nguồn mở.
+-   Protocal Buffer giảm kích thước request và response data.
+-   RPC đơn giản hoá trong việc tạo ra các giao tiếp giữa các service với nhau.
+-   Hỗ trợ HTTP/2 để tăng tốc gửi/nhận HTTP request
+
+-   Khả năng tương thích đa nền tảng.
+
+Tóm lại, ứng dụng gRPC Server phân phối các service methods có thể được gọi trực tiếp bởi các gRPC Client trên các máy và nền tảng khác nhau với cùng tham số và kiểu trả về.
+
+gRPC sử dụng Protocol Buffer để định dạng message request và response giữa máy chủ và máy khách dưới dạng nhị phân. Nó nhỏ gọn hơn JSON và và sau đó chuyển đổi lại ngôn ngữ ban đầu bằng Protocol Buffer compiler.
+
+>https://viblo.asia/p/xay-dung-grpc-service-voi-nodejs-3P0lP9Mm5ox
+
+>https://www.baeldung.com/grpc-introduction
 
 #### SSL/TLS
 
