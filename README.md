@@ -1,9 +1,44 @@
+- [1. Nội dung](#1-N%E1%BB%99i-dung)
+  - [1.1. Lý thuyết](#11-L%C3%BD-thuy%E1%BA%BFt)
+    - [1.1.1. Unit Test/Logging/Performance `[R]`](#111-Unit-TestLoggingPerformance-R)
+      - [1.1.1.1. Unit Test](#1111-Unit-Test)
+      - [1.1.1.2. Logging](#1112-Logging)
+      - [1.1.1.3. Performance](#1113-Performance)
+    - [1.1.2. Threading `[R]`](#112-Threading-R)
+      - [1.1.2.1. Thread, multithreading & concurrency](#1121-Thread-multithreading--concurrency)
+      - [1.1.2.2. Thread-safety trong Java là gì? Làm sao để Thread-safety](#1122-Thread-safety-trong-Java-l%C3%A0-g%C3%AC-L%C3%A0m-sao-%C4%91%E1%BB%83-Thread-safety)
+      - [1.1.2.3. Thread pool, executors](#1123-Thread-pool-executors)
+    - [1.1.3. Networking `[R]`](#113-Networking-R)
+      - [1.1.3.1. Connection pooling](#1131-Connection-pooling)
+      - [1.1.3.2. Caching, caching guava, caching redis](#1132-Caching-caching-guava-caching-redis)
+      - [1.1.3.3. Khái niệm protocol trong networking, http, websocket, gRPC](#1133-Kh%C3%A1i-ni%E1%BB%87m-protocol-trong-networking-http-websocket-gRPC)
+      - [1.1.3.4. SSL/TLS](#1134-SSLTLS)
+      - [1.1.3.5. RESTful API](#1135-RESTful-API)
+    - [1.1.4. Benchmark `[R]`](#114-Benchmark-R)
+      - [1.1.4.1. Benchmark](#1141-Benchmark)
+      - [1.1.4.2. Jmeter](#1142-Jmeter)
+      - [1.1.4.3. Các tool hỗ trợ benchmark hệ thống cho Java? So sánh?](#1143-C%C3%A1c-tool-h%E1%BB%97-tr%E1%BB%A3-benchmark-h%E1%BB%87-th%E1%BB%91ng-cho-Java-So-s%C3%A1nh)
+      - [1.1.4.4. Locust](#1144-Locust)
+    - [1.1.5. JVM `[R]`](#115-JVM-R)
+      - [1.1.5.1. JVM](#1151-JVM)
+      - [1.1.5.2. JRE vs JDK](#1152-JRE-vs-JDK)
+    - [1.1.6. Monitoring](#116-Monitoring)
+    - [1.1.7. Useful library](#117-Useful-library)
+      - [1.1.7.1. Lombok](#1171-Lombok)
+      - [1.1.7.2. Mapping in Java](#1172-Mapping-in-Java)
+  - [1.2. Bài tập](#12-B%C3%A0i-t%E1%BA%ADp)
+    - [1.2.1. Yêu cầu chức năng](#121-Y%C3%AAu-c%E1%BA%A7u-ch%E1%BB%A9c-n%C4%83ng)
+    - [1.2.2. Yêu cầu về mặt thiết kế](#122-Y%C3%AAu-c%E1%BA%A7u-v%E1%BB%81-m%E1%BA%B7t-thi%E1%BA%BFt-k%E1%BA%BF)
+    - [1.2.3. Yêu cầu Kĩ Thuật](#123-Y%C3%AAu-c%E1%BA%A7u-K%C4%A9-Thu%E1%BA%ADt)
+  - [1.3. Tham khảo thêm](#13-Tham-kh%E1%BA%A3o-th%C3%AAm)
+- [2. Nguồn tham khảo](#2-Ngu%E1%BB%93n-tham-kh%E1%BA%A3o)
 
-# Nội dung
 
-## Lý thuyết
+# 1. Nội dung
 
-### Unit Test/Logging/Performance `[R]`
+## 1.1. Lý thuyết
+
+### 1.1.1. Unit Test/Logging/Performance `[R]`
 - Unit test
   + http://www.vogella.com/tutorials/JUnit/article.html
   + https://dev.to/ice_lenor/unit-testing-best-practices-27ec
@@ -12,7 +47,7 @@
   + Tham khảo: https://logging.apache.org/log4j/2.x/performance.html + keyword phía trên
 - Làm rõ khái niệm về throughput và latency, P99. (ý nghĩa của các thông số này)
 
-#### Unit Test 
+#### 1.1.1.1. Unit Test 
 
 **What?**
 
@@ -232,7 +267,7 @@ public class MathUtilTest {
 Trong Ellipse có hỗ trợ plugin [EclEmma](https://gpcoder.com/1943-huong-dan-su-dung-plugin-eclemma-trong-eclipse/). EclEmma có thể đánh dấu những đoạn code nào mà testcase chưa đáp ứng được, tính tỷ lệ phần trăm độ bao phủ của testcase trên từng file, package, project. Từ đó chúng ta có thể đánh giá được chất lượng của Unit Testcase, cũng như dễ dàng bổ sung testcase cho những đoạn code còn thiếu.
 
 
-#### Logging
+#### 1.1.1.2. Logging
 
 >https://gpcoder.com/5500-gioi-thieu-java-logging/
 
@@ -312,7 +347,7 @@ Các tính năng của Log4j:
 
 Cách cài đặt Log4j xem ở [link](https://gpcoder.com/5500-gioi-thieu-java-logging/#Cai_dat_Log4j)
 
-#### Performance
+#### 1.1.1.3. Performance
 
 -   `throughput`: là số lượng hành động hoặc kết quả trên một đơn vị thời gian
 -   `latency`: là thời gian để thực hiện hành động hoặc tạo ra kết quả
@@ -333,12 +368,12 @@ Nhưng không phải vì thế mà các tham số này không có ảnh hưởng
 -   khi IOPS quá cao, chạm đến giới hạn vật lý của hệ thống thì sẽ gây high latency
 -   high latency không xử lý ngay sẽ làm giảm throughput vì data không thực sự được chuyển đến đúng nơi cần đến mà bị nghẽn lại ( busy cũng cao theo )
 
-### Threading `[R]`
+### 1.1.2. Threading `[R]`
 - Khái niệm Thread, multithreading & concurrency?
 - Thread-safety trong Java là gì? Làm sao để đạt được Thread-safety? (tham khảo: [Thread-Safety](https://www.baeldung.com/java-thread-safety))
 - Tìm hiểu về Thread Pool, Executors. (tham khảo: [Thread Pool](https://www.baeldung.com/thread-pool-java-and-guava))
 
-#### Thread, multithreading & concurrency
+#### 1.1.2.1. Thread, multithreading & concurrency
 
 **Thread** (luồng) về cơ bản là một tiến trình con (sub-process). Một đơn vị xử lý nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt. Trong Java, các luồng được quản lý bởi máy ảo Java (JVM).
 
@@ -392,13 +427,13 @@ Từ biểu đồ trên, chúng ta có thể thấy rằng, CPU 1 nhân phân ch
 Có vài điểm khác biệt giữa concurrency và parallelism. Concurrency xử lí nhiều 1 tác vụ 1 lúc, còn parallelism là thực hiện nhiều tác vụ cùng 1 lúc. 
 
 
-#### Thread-safety trong Java là gì? Làm sao để Thread-safety
+#### 1.1.2.2. Thread-safety trong Java là gì? Làm sao để Thread-safety
 
 Java hỗ trợ multithreading bằng run bytecode một cách đồng thời trong separate worker threads, JVM có khả năng cải thiện hiện năng ứng dụng
 
 Thread-safe nghĩa là các threads có thể truy cập cùng resources mà không gây ra kết quả sai hay không thể dự đoán được
 
-##### Staless implementations
+##### 1.1.2.2.1. Staless implementations
 
 Trong phần lớn trường hợp, lỗi là việc chia sẻ  trạng thái giữa các thread không đúng. Cho nên cách đầu tiên đó là dùng staless implementations
 
@@ -418,7 +453,7 @@ public class MathUtils {
 Phương thức factorial() gọi là stateless deterministic function. Nghĩa là cho 1 input, kết quả chắc chắn chỉ cho 1 output. Nó không dựa vào trạng thái bên ngoài và cũng không duy trì trạng thái nào cả. Nên đó được coi là thread-safe vì thế có thể dùng thread gọi cùng 1 lúc mà vẫn ổn, không ảnh hưởng đến kết quả của nhau
 
 
-##### Immutable implementations 
+##### 1.1.2.2.2. Immutable implementations 
 
 Nếu chúng ta cần chia sẻ trạng thái giữa các thread, ta tạo thread-safe classes bằng cách làm chúng bất biến 
 
@@ -442,7 +477,7 @@ MessageService object thì immutable vì trạng thái của nó không thể th
 
 Tuy nhiên nếu nó mutable, nhưng các thread chỉ có quyền read-only, nó cũng thread-safe
 
-##### Thread-local fields
+##### 1.1.2.2.3. Thread-local fields
 
 Ta tạo thread-safe class mà không share trạng thái giữa các thread bằng việc làm cho chúng thread-local
 
@@ -490,7 +525,7 @@ public class ThreadState {
 }
 ```
 
-##### Synchronized collections
+##### 1.1.2.2.4. Synchronized collections
 
 Sử dụng set of synchronization wrapper trong collections framework
 
@@ -504,7 +539,7 @@ thread2.start();
 
 Synchronized collections sử dụng intrinsic locking  trong cách method. Nghĩa là mỗi thread chỉ có thể được truy cập bởi 1 thread tại 1 thời điểm, các thread còn lại sẽ bị block cho tới khi method được unlock bởi thread đầu tiên. Kém hiệu năng 
 
-##### Concurrent collections
+##### 1.1.2.2.5. Concurrent collections
 
 Thay vì dùng cái ở trên, Java có cung cấp java.util.concurrent package
 
@@ -521,7 +556,7 @@ Hiệu năng cao hơn synchronized nhiều
 
 Synchronized và concurrent chỉ làm collections thread safe không phải contents
 
-##### Atomic objects
+##### 1.1.2.2.6. Atomic objects
 
 Java cung cấp AtomicInteger, AtomicLong, AtomicBoolean, and AtomicReference.
 
@@ -562,7 +597,7 @@ public class AtomicCounter {
 Ta sử dụng AtomicInteger, khi đó counter.incrementAndGet() atomic
 
 
-##### Synchronized methods
+##### 1.1.2.2.7. Synchronized methods
 
 Chỉ 1 thread được truy cập 1 synchronized method tại 1 thời điểm, các thread còn lại bị block
 
@@ -580,7 +615,7 @@ When a thread calls a synchronized method, it acquires the intrinsic lock.
 
 We can implement synchronization in instance methods, static methods, and statements (synchronized statements).
 
-##### Synchronized statements
+##### 1.1.2.2.8. Synchronized statements
 
 ```java
 public void incrementCounter() {
@@ -593,7 +628,7 @@ public void incrementCounter() {
 
 Chỉ synchronized một phần của 1 method, hạn chế chi phí của synchronization
 
-##### Volatile fields
+##### 1.1.2.2.9. Volatile fields
 
 Các phương thức và khối được đồng bộ hóa rất tiện lợi để giải quyết các vấn đề về khả năng hiển thị biến giữa các luồng. Thậm chí, các giá trị của các trường lớp thông thường có thể được CPU lưu vào bộ nhớ cache. Do đó, các bản cập nhật hệ quả cho một trường cụ thể, ngay cả khi chúng được đồng bộ hóa, có thể không hiển thị với các luồng khác.    
 
@@ -611,7 +646,7 @@ Volatile instruct JVM và compiler lưu counter vào main memmory. Theo cách đ
 
 Việc sử dụng một biến volatile đảm bảo rằng tất cả các biến có thể nhìn thấy đối với một luồng đã cho cũng sẽ được đọc từ bộ nhớ chính.
 
-##### Extrinsic locking
+##### 1.1.2.2.10. Extrinsic locking
 
 Ta có thể cải thiện extrinsic thread-safe bằng dùng extrinsic monitor lock thay vì extrinsic one
 
@@ -638,7 +673,7 @@ With intrinsic locking, where synchronized methods and blocks rely on the this r
 
 An extrinsic lock makes use of a private entity, which is not accessible from the outside
 
-##### Reentrant locks
+##### 1.1.2.2.11. Reentrant locks
 
 Java cung cấp một tập hợp các triển khai Khóa được cải tiến, có hành vi phức tạp hơn một chút so với các khóa nội tại đã thảo luận ở trên.
 
@@ -670,7 +705,7 @@ public class ReentrantLockCounter {
 
  When set to true, and multiple threads are trying to acquire a lock, the JVM will give priority to the **longest waiting** thread and grant **access** to the lock.
 
-##### Read/write locks
+##### 1.1.2.2.12. Read/write locks
 
 Khóa ReadWriteLock thực sự sử dụng một cặp khóa liên quan, một khóa cho các hoạt động chỉ đọc và một cho các hoạt động ghi.
 
@@ -707,7 +742,7 @@ public class ReentrantReadWriteLockCounter {
 }
 ```
 
-#### Thread pool, executors
+#### 1.1.2.3. Thread pool, executors
 
 >https://gpcoder.com/3548-huong-dan-tao-va-su-dung-threadpool-trong-java/
 
@@ -751,7 +786,7 @@ Chúng có thể tạo một Executor bằng cách sử dụng một trong các 
 -   **newScheduledThreadPool(int corePoolSize)**: tương tự như newCachedThreadPool() nhưng sẽ có thời gian delay giữa các Thread.
 -   **newSingleThreadScheduledExecutor()**: tương tự như newSingleThreadExecutor() nhưng sẽ có khoảng thời gian delay giữa các Thread.
 
-### Networking `[R]`
+### 1.1.3. Networking `[R]`
 - Connection pooling ?
 - Caching ? Caching với guava, redis: https://www.baeldung.com/guava-cache, https://redis.io/
 - Khái niệm cơ bản về protocol trong networking.
@@ -761,7 +796,7 @@ Chúng có thể tạo một Executor bằng cách sử dụng một trong các 
 - SSL/TLS
 - RESTful API là gì?
 
-#### Connection pooling
+#### 1.1.3.1. Connection pooling
 
 >https://itphutran.com/connection-pool-trong-java-ket-noi-co-du-lieu-phan-1/
 
@@ -775,9 +810,9 @@ Với cách làm trên, thì website nhỏ vừa chúng ta hoàn toàn làm như
 
 CPM (Connection pool Manager) là trình quản lý vùng kết nối, một khi ứng dụng được chạy thì Connection pool tạo ra một vùng kết nối, trong vùng kết nối đó có các kết nối do chúng ta tạo ra sẵn.Và như vậy, một khi có một request đến thì CPM kiểm tra xem có kết nối nào đang rỗi không? Nếu có nó sẽ dùng kết nối đó  còn không thì nó sẽ đợi cho đến khi có kết nối nào đó rỗi hoặc kết  nối khác bị timeout.
 
-#### Caching, caching guava, caching redis
+#### 1.1.3.2. Caching, caching guava, caching redis
 
-##### Caching
+##### 1.1.3.2.1. Caching
 
 >https://toidicodedao.com/2018/12/18/caching-la-gi-caching-tang-toc-do-tai/
 
@@ -821,7 +856,7 @@ Trong thực tế, caching được sử dụng ở rất nhiều tầng. Thư�
 -   Trong các ứng dụng lớn, có nhiều application server, người ta thường lưu trữ cache trong một server riêng, sử dụng Memcache hoặc Redis
 -   Bản thân CDN – Content Delivery Network cũng là một dạng cache, đưa static resource như ảnh, CSS, JS đến server nằm gần người dùng hơn (nhằm tăng tốc độ tải).
 
-##### Caching guava
+##### 1.1.3.2.2. Caching guava
 
 >http://thachleblog.com/cache-voi-guava/
 
@@ -925,7 +960,7 @@ Kết quả
 
 ![](http://thachleblog.com/wp-content/uploads/2016/11/result.png)
 
-##### Caching redis
+##### 1.1.3.2.3. Caching redis
 
 ![](https://nukeviet.vn/uploads/news/2016_07/redis.png)
 
@@ -993,9 +1028,9 @@ public class MyApp {
 
 >https://www.tutorialspoint.com/redis/
 
-#### Khái niệm protocol trong networking, http, websocket, gRPC
+#### 1.1.3.3. Khái niệm protocol trong networking, http, websocket, gRPC
 
-##### **Protocol**
+##### 1.1.3.3.1. **Protocol**
 
 -   Việc trao đổi thông tin dù là đơn giản nhất cũng phải tuân theo những nguyên tắc nhất định. Đơn giản như hai người nói chuyện với nhau, muốn cho cuộc nói chuyện có kết quả thì ít nhất cả hai người phải ngầm tuân thủ quy ước : Khi một người nói thì người kia phải biết lắng nghe và ngược lại. Việc truyền thông trên mạng cũng vậy. Cần có các quy tắc, quy ước truyền thông về nhiều mặt : khuôn dạng cú pháp của dữ liệu, các thủ tục gửi, nhận dữ liệu, kiểm soát hiệu quả nhất chất lượng truyền thông tin. Tập hợp những quy tắc, quy ước truyền thông đó được gọi là giao thức của mạng (protocol).
 
@@ -1007,7 +1042,7 @@ public class MyApp {
 
 -   Những giao thức khác nhau là những ý tưởng cho những kiểu truyền thông khác nhau.
 
-##### **HTTP**
+##### 1.1.3.3.2. **HTTP**
 
 **HTTP** (**H**yper**T**ext **T**ransfer **P**rotocol - Giao thức truyền tải siêu văn bản) là một trong các giao thức chuẩn về mạng Internet, được dùng để liên hệ thông tin giữa Máy cung cấp dịch vụ (Web server) và Máy sử dụng dịch vụ (Web client), là giao thức Client/Server dùng cho World Wide Web – WWW
 
@@ -1055,7 +1090,7 @@ Các thành phần chính:
 
         ![](https://images.viblo.asia/8414d386-f4e5-4b9c-aded-d3b379dc7c20.png)
 
-##### **Websocket**
+##### 1.1.3.3.3. **Websocket**
 
 Trong mô hình HTTP bạn thấy rằng máy khách sẽ yêu cầu tài nguyên tới máy chủ và máy chủ phản hồi kết quả, như vậy việc trao đổi dữ liệu luôn luôn được máy khách yêu cầu trước và máy chủ không thể gửi bất kỳ dữ liệu tới máy khách trước nếu máy khách chưa yêu cầu.
 
@@ -1119,7 +1154,7 @@ public class ReceiveEndpoint {
 }
 ```
 
-##### **gRPC**
+##### 1.1.3.3.4. **gRPC**
 
 gRPC là một framework RPC (viết tắt của Remote Procedure Call) được phát triển bởi Google, nhằm tối ưu hoá và tăng tốc việc giao tiếp giữa các service với nhau trong kiến trúc microservice.
 
@@ -1137,26 +1172,169 @@ gRPC sử dụng Protocol Buffer để định dạng message request và respon
 
 >https://viblo.asia/p/xay-dung-grpc-service-voi-nodejs-3P0lP9Mm5ox
 
+**Implementation**
+
 >https://www.baeldung.com/grpc-introduction
 
-#### SSL/TLS
+#### 1.1.3.4. SSL/TLS
 
-#### RESTful API
+**SSL** là chữ viết tắt của **Secure Sockets Layer** (Lớp socket bảo mật). Một loại bảo mật giúp mã hóa liên lạc giữa website và trình duyệt. Công nghệ này đang lỗi thời và được thay thế hoàn toàn bởi TLS.
+
+**TLS** là chữ viết tắt của **Transport Layer Security**, nó cũng giúp bảo mật thông tin truyền giống như SSL. Nhưng vì SSL không còn được phát triển nữa, nên TLS mới là thuật ngữ đúng nên dùng.
+
+**HTTPS** là phần mở rộng bảo mật của HTTP. Website được cài đặt chứng chỉ **SSL/TLS** có thể dùng gaio thức HTTPS để thiết lập kênh kết nối an toàn tới server. Tóm lại, các điều cơ bản về SSL là:
+
+-   Mục tiêu của SSL/TLS là bảo mật các thông tin nhạy cảm trong quá trình truyền trên internet như, thông tin cá nhân, thông tin thanh toán, thông tin đăng nhập.
+-   Nó là giải pháp thay thế cho phướng pháp truyền thông tin văn bản dạng plain text, văn bản loại này khi truyền trên internet sẽ không được mã hóa, nên việc áp dụng mã hóa vào sẽ khiến cho các bên thứ 3 không xâm nhập được bào thông tin của bạn, không đánh cắp hay chỉnh sửa được các thông tin đó.
+-   Hầu hết mọi người đều quen thuộc với các chứng chỉ SSL/TLS, đang được dùng bởi các website lớn và các webmaster nghiêm túc trong việc bảo vệ các giao dịch người dùng.
+-   Bạn có thể biết được website có đang dùng chứng chỉ bảo mật SSL/TLS hay không đơn giản bằng cách nhìn vào icon trong URL ngay trong thanh địa chỉ.
+
+**Cách hoạt động**
+
+Chứng chỉ SSL/TLS hoạt động bằng cách tích hợp key mã hóa vào thông tin định danh công ty. Nó sẽ giúp công ty mã hóa mọi thông tin được truyền mà không bị ảnh hưởng hoặc chỉnh sửa bởi các bên thứ 3.
+
+![](https://www.hostinger.vn/huong-dan/wp-content/uploads/sites/10/2018/12/thiet-lap-ket-noi-an-toan-voi-server.png)
+
+SSL/TLS hoạt động bằng cách sử dụng public và private key, đồng thời các khóa duy nhất của mỗi phiên giao dịch. Mỗi khi khách truy cập điền vào thanh địa chỉ SSL thông tin web browser hoặc chuyển hướng tới trang web được bảo mật, trình duyệt và web server đã thiết lập kết nối.
+
+Trong phiên kết nối ban đầu, public và private key được dùng để tạo session key, vốn được dùng để mã hóa và giải mã dữ liệu được truyền đưa. Session key sẽ được sử dụng trong một khoảng thời gian nhất định và chỉ có thể dùng cho phiên giao dịch này.
+
+Nếu có khóa màu xanh ngay đầu địa chỉ web thì tức là website đã thiết lập đúng SSL/TLS. Bạn có thể nhấn vào nút màu xanh đó để xem ai là người giữ chứng chỉ này.
+
+**Vì sao cần SSL/TLS?**
+
+SSL/TLS là yếu tố bắt buộc khi bạn cần xử lý các thông tin nhạy cảm như thông tin đăng nhập và mật khẩu, hoặc khi phải xử lý các thông tin thanh toán.
+
+Mục tiêu của SSL/TLS là đảm bảo chỉ có một người nhận mà người gửi chỉ định mới có thể truy cập vào thông tin dữ liệu được truyền đi. Việc này đặc biệt quan trọng khi có rất nhiều thiết bị và server mà thông tin phải đi qua từ lúc gửi đến lúc chính thức tới đúng nơi.
+
+![](https://www.hostinger.vn/huong-dan/wp-content/uploads/sites/10/2018/12/ssl-bao-ve-nhu-the-nao.png)
+
+Có 3 lý do chính mà một website hiện đại buộc phải có SSL/TLS:
+
+-   **Khi bạn cần chứng thực**: Bất kỳ server nào cũng có thể giả dạng là server của bạn, đánh cắp thông tin được truyền đưa. SSL/TLS cho phép bạn xác thực danh tính của server để người dùng biết chắc họ đang giao tiếp với đúng người mà họ muốn giao tiếp.
+-   **Để tăng độ tin cậy**: Nếu bạn đang chạy một site ecommerce mà bạn cần người dùng đưa các thông tin quan trọng đối với họ, thì ít nhất họ cần biết thông tin họ gửi phải được bảo mật trước thì họ mới tin bạn. Sử dụng SSL/TLS là cách dễ nhất để cho khách truy cập tin tưởng, hơn bất kỳ lời cam kết nào được đưa ra từ phía bạn.
+-   **Khi bạn cần tuân thủ chuẩn của ngành của bạn**: Trong một số ngành nhất định, như ngành tài chính, bạn sẽ bắt buộc áp dụng một số chuẩn bảo mật. Bạn cũng có thể tham khảo chỉ dẫn về Payment Card Industry (PCI) mà bạn cần tuân thủ nếu bạn muốn nhận thanh toán qua thẻ tín dụng trên website của bạn. Một trong số các yêu cầu thiết yếu là việc sử dụng chứng chỉ SSL/TLS.
+
+![](https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/http-vs-https.png)
+
+Khi bạn thiết lập chứng chỉ SSL, bạn sẽ cần cấu hình nó truyền dữ liệu qua HTTPS. 2 công nghệ này đi đôi với nhau mà bạn không thể chỉ dùng 1 trong 2.
+
+**Cơ chế kỹ thuật**
+
+Khi người dùng gửi yêu cầu kết nối đến server đối tượng, server gửi SSL server certificate có chứa [puplic key] . Ở trình duyệt của người dùng sử dụng root certificate được cài đặt sẵn trong trình duyệt để kiểm chứng SSL server certificate. Nếu không có vấn đề gì thì mã hóa khóa chung của chính nó bằng [puplic key] được gửi từ server rồi gửi đến server. Phía server thì bằng cách giải mã bằng [secret key] , lấy được khóa chung và thực hiện truyền tin bằng cách sử dụng khóa chung này.
+
+![](https://images.viblo.asia/63c29d3a-7ccb-4206-a415-ffd345fc137d.png)
+
+Trong đó, chúng ta chú ý đến phần kiểm chứng certificate. Chứng chỉ không được các tổ chức đáng tin cậy chứng nhận thì không thể xác minh bằng root certificate. Nhiều người sử dụng Internet khi truy cập vào trang web với một trình duyệt cơ bản thì có hiển thị một cảnh báo rằng nó không thể được xác thực, nên rất khó cho người dùng có thể hiển thị màn hình kế tiếp. Do đó, bạn phải sử dụng SSL server certificate được xác thực bởi một bên thứ ba đáng tin cậy.
+
+>https://www.hostinger.vn/huong-dan/https-tls-ssl-la-gi/
+
+#### 1.1.3.5. RESTful API
+
+**API** (application programming interface) là một tập các quy tắc và cơ chế mà theo đó, một ứng dụng hay một thành phần sẽ tương tác với một ứng dụng hay thành phần khác. API có thể trả về dữ liệu mà bạn cần cho ứng dụng của mình ở những kiểu dữ liệu phổ biến như JSON hay XML. 
+
+![](https://laptrinhvien.io/wp-content/uploads/2018/04/laptrinhvienio-blog-restful-api.png)
+
+**REST** là từ viết tắt cho **RE**presentational **S**tate **T**ransfer. Các ứng dụng sử dụng kiểu thiết kế **REST** thì được gọi là **RESTful** (-ful là tiếp vị ngữ giống như beauty và beautiful). Khái niệm này có thể được diễn giải bằng câu từ như sau: dữ liệu sẽ được truyền tải và trình bày cho client side dưới định dạng nào đó (JSON). Có một trong những điểm chính mà bạn cần phải nhớ: REST không phải là một chuẩn hay một giao thức, đây là một cách tiếp cận, một kiểu kiến trúc để viết API.
+
+![](https://laptrinhvien.io/wp-content/uploads/2018/04/laptrinhvienio-blog-restful-api-0.png)
+
+**RESTful hoạt động như thế nào?**
+
+Khi làm việc với server sẽ gồm 4 hoạt động thiết yếu là:
+
+-   Lấy dữ liệu ở một định dạng nào đó (JSON)
+-   Tạo mới dữ liệu
+-   Cập nhật dữ liệu
+-   Xóa dữ liệu
+
+Bảng tương quan HTTP, CRUD, và SQL
+
+![](https://laptrinhvien.io/wp-content/uploads/2018/04/laptrinhvienio-blog-restful-api-04.png)
+
+Tất cả các request mà bạn (client side) thực hiện đều cũng sẽ có mã trạng thái HTTP (HTTP status code). Có rất nhiều status code và sẽ được chia ra thành 5 lớp. Chữ số đầu tiên cho biết một status code thuộc vào lớp nào:
+
+-   1xx: hàm ý mang thông tin.
+-   2xx: hàm ý thành công
+-   3xx: hàm ý điều hướng
+-   4xx: hàm ý là có lỗi từ phía client side
+-   5xx: hàm ý là có lỗi phía máy chủ (server)
+
+Có tất cả 9 loại request, GET và POST là 2 loại thông dụng được sử dụng nhiều hiện này:
+
+-   GET: được sử dụng để lấy thông tin từ sever theo URI đã cung cấp.
+-   HEAD: giống với GET nhưng response trả về không có body, chỉ có header.
+-   POST: gửi thông tin tới sever thông qua các biểu mẫu HTTP.
+-   PUT: ghi đè tất cả thông tin của đối tượng với những gì được gửi lên.
+-   PATCH: ghi đè các thông tin được thay đổi của đối tượng.
+-   DELETE: xóa tài nguyên trên server.
+-   CONNECT: thiết lập một kết nối tới server theo URI.
+-   OPTIONS: mô tả các tùy chọn giao tiếp cho resource.
+-   TRACE: thực hiện một bài test loop - back theo đường dẫn đến resource.
 
 
-### Benchmark `[R]`
+**Kiến trúc thiết kế**
+
+Tất cả tài nguyên (resources) trong REST là thực thể (entities). Có thể độc lập như:
+
+-   GET /users — lấy danh sách các người dùng;
+-   GET /users/123 — lấy thông tin một người dùng có id = 123;
+-   GET /posts — lấy tất cả bài post.
+
+Cũng sẽ có những thực thể độc lập dựa vào những thực thể khác:
+-   GET /users/123/projects  – Lấy tất cả projects của user với id = 123
+
+Các ví dụ trên cho thấy rằng GET lấy thông tin thực thể mà client side đã request. Một request thành công sẽ được trả về dữ liệu liên quan tới thực thể và kèm theo status code là 200 (OK). Nếu có lỗi, bạn sẽ nhận lại status code 404 (Not Found), 400 (Bad Request) hoặc 5xx (Server Error).
+
+Cùng chuyển qua phương thức POST (tạo mới một thực thể):
+
+    POST /users.
+
+Khi tạo một thực thể mới, bạn sẽ truyền dữ liệu vào trong request body. Ví dụ:
+```json
+{
+“first_name”: “Vasyl”,
+“last_name”: “Redka”
+}
+```
+
+Sau khi gửi request lên server, bạn sẽ nhận được kết quả trả về có thể là status code 201 (Created), hàm ý tạo mới thành công. Ví dụ, response trả về sẽ là dữ liệu của một thực thể vừa được tạo:
+
+```json 
+{
+“id”: “1”,
+“first_name”: “Vasyl”,
+“last_name”: “Redka”
+}
+```
+
+Request tiếp theo là PUT. Được dùng để cập nhật thực thể. Khi bạn gửi request thì body cũng cần phải bao gồm dữ liệu cần được cập nhật liên qua tới thực thể.
+
+-   PUT /users/123 – cập nhật người dùng với id = 123
+
+Sự thay đổi cần phải được chỉ ra là cập nhật cho thực thể nào, được truyền vào thông qua các tham số. Nếu được cập nhật thành công, sẽ trả về mã 200 (OK) và dữ liệu của thực thể vừa được cập nhật.
+
+Request cuối cùng là DELETE. Nó rất là dễ hiểu và được dùng để xóa một thực thể cụ thể được chỉ định thông qua tham số.
+
+-   DELETE /users/123 – xóa một user với id = 123
+
+Nếu xóa thành công thì sẽ trả về status 200 (OK) cùng với response body bao gồm thông tin về trạng thái của thực thể. Ví dụ, khi bạn không xóa thực thể từ database mà chỉ đánh dấu là đã được xóa, status code sẽ luôn trả về là 200 (OK) và response body với trạng thái. DELETE có thể trả về status 204 (No Content) và không kèm theo response body.
+
+Nếu bạn xóa thực thể trong database luôn thì status code cho request thứ 2 sẽ trả về là 404 (Not Found) bởi vì thực thể đã được xóa và không thể truy cập được nữa.
+
+### 1.1.4. Benchmark `[R]`
   - Benchmark ? 
  - [Jmeter](https://www.baeldung.com/jmeter)
  - [Các tool hỗ trợ benchmark hệ thống dành cho Java? So sánh ưu, nhược điểm?](https://www.baeldung.com/gatling-jmeter-grinder-comparison)
  - [Locust](https://engineering.zalopay.vn/benchmark-voi-locust/)?
 
-#### Benchmark
+#### 1.1.4.1. Benchmark
 
 Benchmark là hành động chạy 1 hay 1 tập chương trình, các thao tác khác để đánh giá performance tương đối của 1 object, thường được chạy bằng 1 lượng các bộ test tiêu chuẩn. Thuật ngữ benchmark cũng thường được sử dụng cho mục đích của các chương trình benchmark được thiết kế công phu.
 
 
 
-#### Jmeter
+#### 1.1.4.2. Jmeter
 
 Apache JMeter may be used to test performance both on static and dynamic resources, Web dynamic applications. 
 
@@ -1175,7 +1353,7 @@ Ability to load and performance test many different applications/server/protocol
 -   TCP
 -   Java Object
 
-##### Tạo Jmeter script
+##### 1.1.4.2.1. Tạo Jmeter script
 
 Jmeter script là một file bao gồm technical description của các test chúng ta. Cập nhật test plan, đổi tên sau đó add Thread Group
 
@@ -1212,11 +1390,11 @@ After rerunning the test, we see that there are some (here it’s 3) users that 
 
 ![](https://www.baeldung.com/wp-content/uploads/2017/12/duration-assertion-failed-blur.png)
 
-##### Run JMeter tests
+##### 1.1.4.2.2. Run JMeter tests
 
 Có 2 cách: 1 là dùng Maven plugin, còn lại là dùng JMeter non GUI mode
 
-###### JMeter Maven plugin
+###### 1.1.4.2.2.1. JMeter Maven plugin
 
 Let’s add it to the pom.xml of our project:
 
@@ -1246,7 +1424,7 @@ After this, we can run all our tests with mvn verify or just the JMeter ones wit
 
 Note: Here we specified the directory where our tests are located in the project, either the default one(${project.basedir}/src/test/jmeter) will be chosen; likewise is configured the result directory else the default one will be ${project.basedir}/target/jmeter/results.
 
-###### JMeter Non GUI
+###### 1.1.4.2.2.2. JMeter Non GUI
 
 The other way to do it’s via the JMeter executable, assuming that it’s available via the command line we can do this:
 
@@ -1258,11 +1436,11 @@ jmeter -Jjmeter.save.saveservice.output_format=xml
 
 Note: it’s recommended to not use GUI mode for load testing, only for test creation and test debugging.
 
-#### Các tool hỗ trợ benchmark hệ thống cho Java? So sánh?
+#### 1.1.4.3. Các tool hỗ trợ benchmark hệ thống cho Java? So sánh?
 
 >https://cuongquach.com/top-10-cong-cu-ma-nguon-mo-kiem-tra-tai-website-phan-1.html
 
-##### JMeter
+##### 1.1.4.3.1. JMeter
 
 JMeter là công cụ mã nguồn mở rất phổ biến trong việc kiểm thử khả năng chịu tải cho website. Apache Jmeter là một ứng dụng của Java được thiết kế đặc biệt cho khả năng đo hiệu suất.
 
@@ -1301,7 +1479,7 @@ JMeter là công cụ mã nguồn mở rất phổ biến trong việc kiểm th
 ![](https://cuongquach.com/resources/images/2017/11/jmeter-4.png)
 
 
-##### Locust
+##### 1.1.4.3.2. Locust
 
 ![](https://cuongquach.com/resources/images/2017/11/locust-logo.jpg)
 
@@ -1342,7 +1520,7 @@ Trên trình duyệt web bạn truy cập vào theo dạng: `http://<ip_server>:
 
 ![](https://cuongquach.com/resources/images/2017/11/locust-5.png)
 
-##### Gatling
+##### 1.1.4.3.3. Gatling
 
 ![](https://cuongquach.com/resources/images/2017/11/Gatling-logo.png)
 
@@ -1370,7 +1548,7 @@ Vào xem index.html
 
 ![](https://cuongquach.com/resources/images/2017/11/gatling-5.png)
 
-#### Locust
+#### 1.1.4.4. Locust
 
 Locust là công cụ khá hay để chủ động load test hệ thống trước khi release
 
@@ -1378,14 +1556,14 @@ Nhiều hệ thống bên mình đang chạy bằng Java và có nhu cầu test 
 
 ![](https://locust.io/static/img/screenshot.png)
 
-##### Mô hình hoạt động
+##### 1.1.4.4.1. Mô hình hoạt động
 
 
 -   Locust hoạt động theo mô hình client - server
 -   Locust server được viết bằng Python, ghi nhận các kết quả test do client báo lên
 -   Client có thể viết bằng nhiều ngôn ngữ khác nhau (Python, Go, Java).
 
-##### Cách sử dụng
+##### 1.1.4.4.2. Cách sử dụng
 
 -   Cài đặt Locust theo hướng dẫn
 -   Tạo file dummy.py
@@ -1416,11 +1594,11 @@ nohup locust -f benchmark/dummy.py --master --master-bind-host=0.0.0.0 \
 ```
 Chú ý: Locust hỗ trợ giao diện Web (thông qua tham số web-port)
 
-### JVM `[R]`
+### 1.1.5. JVM `[R]`
 -  JVM ? How it work ?
 -  JRE vs JDK?
 
-#### JVM
+#### 1.1.5.1. JVM
 
 JVM (viết tắt của Java Virtual Machine) là một thiết bị trừu tượng (ảo) có thể giúp máy tính chạy các chương trình Java. Nó cung cấp môi trường runtime mà trong đó Java Bytecode có thể được thực thi.
 
@@ -1467,32 +1645,372 @@ Bộ nhớ trong JVM:
 
 -   Java Perm: Lưu trữ thông tin của Class được nạp vào và một vài tính năng khác như StringPool (vùng nhớ của biến String) thường được tạo bởi phương thức String.interm(). Khi ứng dụng của bạn chạy, Perm space được lấp đầy nhanh chóng.
 
-#### JRE vs JDK
+#### 1.1.5.2. JRE vs JDK
 
-##### JRE
+##### 1.1.5.2.1. JRE
 
 ![](https://viettuts.vn/images/java/jre.jpg)
 
 JRE (là viết tắt của Java Runtime Environment) được sử dụng để cung cấp môi trường runtime. Nó là trình triển khai của JVM. JRE bao gồm tập hợp các thư viện và các file khác mà JVM sử dụng tại runtime. Trình triển khai của JVM cũng được công bố bởi các công ty khác ngoài Sun Micro Systems. 
 
-##### JDK
+##### 1.1.5.2.2. JDK
 
 ![](https://viettuts.vn/images/java/jdk.jpg)
 
 JDK (là viết tắt của Java Development Kit) bao gồm JRE và các Development Tool. 
 
 
-### Monitoring
+### 1.1.6. Monitoring
 - [Prometheus](https://engineering.zalopay.vn/monitoring-alert-voi-prometheus/)
 
-### Useful library
+![](https://engineering.zalopay.vn/content/images/2019/01/1_6mteuOZF54p-JOf2xqg81A.jpeg)
+
+Prometheus là một open-source systems monitoring và alert toolkit, được phát triển bởi SoundCloud. Prometheus được viết bằng Go.
+
+Tính năng, đặc điểm chính của Prometheus là:
+
+
+-   Mô hình dữ liệu đa chiều (multi-dimensional) với dữ liệu chuỗi thời gian (time series) được xác định theo tên và cặp key/value.
+
+-   Cung cấp ngôn ngữ truy vấn linh hoạt để tận dụng các dime.
+
+-   Không phụ thuộc vào lưu trữ phân tán; các nút máy chủ đơn lẻ và độc lập.
+
+-   Các mục tiêu được phát hiện thông qua service discovery hoặc cấu hình tĩnh.
+
+-   Sử dụng các metrics thu thập được từ các service để alert, visualize.
+
+**Mô hình hoạt động**
+
+![](https://prometheus.io/assets/architecture.svg)
+
+Một hệ sinh thái Prometheus gồm nhiều thành phần, trong đó có nhiều thành phần là tùy chọn. Về cơ bản bao gồm những thành phần sau:
+
+-   Thành phần chính Prometheus Server, pull các metrics từ service và lưu trữ.
+-   Client libary hỗ trợ nhiều ngôn ngữ, dùng để export các metrics.
+-   Alertmanager để tiếp nhận và xử lý các alert.
+-   Grafana để hiển thị tổng quan các metrics.
+
+Theo đó, với thời gian định kì Prometheus thực hiện pull metrics từ các service thông qua giao thức HTTP.
+
+Tiến hành lưu trữ local hoặc remote tới DB bên thứ 3.
+
+Chạy các rule để record một time series mới dựa trên các time series từ các 
+service, hoặc để tạo ra một alert.
+
+Query và Visualize data bằng grafana.
+
+**Data model**
+
+
+Prometheus lữu trữ dữ liệu dưới dạng time series (timestamp - value), trong đó timestamp là milliseconds và value là giá trí 64-bit float.
+
+Các time series này được phân loại theo metric name và các label
+-   Metric name là tên được export từ khác service chỉ định một ý nghĩa đo đạc nào đó.
+
+-   Label được add vào các metric name giúp Prometheus mô hình hóa dữ liệu một cách đa chiều (multi-dimensional)
+
+Ví dụ:
+
+Một metric đo lường số lượng http request tới API Server được đặt `metric name là api_http_requests_total`, add các label `key/value` vào metric name giúp dimensional data, ứng với label `key/value` sẽ cho ra các chuỗi time series khác nhau:
+
+```
+api_http_requests_total{method="GET", endpoint="/api/pets", instance="localhost:8080"}
+api_http_requests_total{method="GET", endpoint="/api/tracks", instance="10.40.81.11:8080"}
+```
+
+Ngôn ngữ truy vấn PromQL sau đó cho phép lọc và tổng hợp dựa trên các dimensions.
+
+Prometheus cung cấp các metric type như sau:
+
+
+-   Counter: Biểu diễn một metric với giá trị chỉ tăng, reset về 0 khi service restart. Thường được dùng để đo số lượng request vào, ra ..v.v..
+
+-   Gauge: Biểu diễn một metric với giá trị có thể lên xuống. Thường được dùng để đo các giá trị như memory sử dụng, ..v.v..
+
+-   Histogram: Biểu diễn một metric chứa các bucket, các giá trị trong ngưỡng sẽ được tính vào các bucket tương ứng. Thường được dùng để đo giá trị như latency, request size, ..v.v..
+
+-   Summary: Biểu diễn một metric theo %, các giá trị được tính toán và biểu diễn các quantiles. Thường được dùng để đo giá trị như latency, request size, ..v.v..
+
+Lưu ý: Với những service đòi hỏi perfomance thì không nên sử dụng Summary vì nó tính toán trên client thay vào đó nên sử dụng histogram sau đó dùng hàm histogram_quantile để tính ra giá trị giống summary. 
+
+**Alert**
+
+Việc alert với Prometheus thông qua các alert rule
+
+Các alert rule này theo dõi các metric được export từ các service. Khi giá trị các metric này vượt ngưỡng thì Prometheus sẽ trigger một alert và sẽ gửi tới alertmanager.
+
+```
+groups:
+- name: example
+  rules:
+  - alert: HighLatency
+    expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: High request latency
+```
+
+Nếu latency của các request trong vòng 5 phút lớn hơn 0.5 giây thì alert HighLatency sẽ được trigger, alert này nếu như trong vòng 10 phút vẫn còn trigger, tức là latency sau 10 phút vẫn > 0.5 giây thì alert sẽ chuyển sang trạng thái firing và gửi alert tới alertmanager.
+
+Alertmanager sau khi nhận được alert sẽ chờ group_wait (alertmanager config) trước khi gửi alert nhằm tránh việc như gửi cùng 1 alert 100 lần trong vòng một thời gian ngắn.
+
+**Tích hợp vào service**
+
+Các service sử dụng [client libary](https://prometheus.io/docs/instrumenting/clientlibs/) để export các metrics.
+
+Để Prometheus pull các metric Service cần export endpoint:
+
+```java
+# Java example 
+
+# Peometheus client
+# default endpoint host:1234/metrics
+HTTPServer server = new HTTPServer(1234);
+
+# Jetty
+Server server = new Server(1234);
+ServletContextHandler context = new ServletContextHandler();
+context.setContextPath("/");
+server.setHandler(context);
+
+context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");
+```
+
+Record metric: java client
+
+```java
+class YourClass {
+  static final Gauge inprogressRequests = Gauge.build()
+     .name("inprogress_requests").help("Inprogress requests.").register();
+  
+  void processRequest() {
+    inprogressRequests.inc();
+    // Your code here.
+    inprogressRequests.dec();
+  }
+}
+```
+
+### 1.1.7. Useful library
 - [Lombok](https://engineering.zalopay.vn/lombok/)
 - Map struct: [ref1](https://www.baeldung.com/java-performance-mapping-frameworks) và [ref2](https://www.baeldung.com/mapstruct)
 
+#### 1.1.7.1. Lombok
 
-## Bài tập
+"Boilerplate" nghĩa là code lặp đi nhiều lần với ít sự thay đổi
 
-### Yêu cầu chức năng  
+Lombok giúp ta giải quyết vấn đề đó
+
+**Getter và Setter**
+Thông thường code chúng tương tự nhau và khá nhiều
+
+```java
+public class Person {
+
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+    private Sex sex;
+
+    public enum Sex {
+        MALE,
+        FEMALE
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+
+    public Sex getSex() {
+        return this.sex;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+}
+```
+
+Với Lombok chỉ cần như sau:
+
+```java
+@Getter
+@Setter
+public class Person {
+
+    private String firstName;
+    private String lastName;
+    private LocalDate birthday;
+    private Sex sex;
+
+    public enum Sex {
+        MALE,
+        FEMALE
+    }
+
+}
+```
+
+**Buider**
+
+```java
+Person person = Person.builder()
+                .firstName("Bob")
+                .lastName("Vu")
+                .birthday(LocalDate.of(1991, 1, 1))
+                .sex(Person.Sex.FEMALE)
+                .build();
+```
+
+Lombok chỉ cần như sau:
+
+```java
+@Getter
+@Setter
+@Builder
+public class Person {
+
+    private String firstName;
+    private String lastName;
+    private LocalDate birthday;
+    private Sex sex;
+
+    public enum Sex {
+        MALE,
+        FEMALE
+    }
+
+}
+```
+
+**Cài đặt**
+1. Install lombok plugin for IntelliJ
+https://github.com/mplushnikov/lombok-intellij-plugin#plugin-installation
+
+2. Enable Annotation Processing option of IntelliJ https://github.com/mplushnikov/lombok-intellij-plugin#required-intellij-configuration
+
+3. Add lombok as dependency of your module.
+Example with maven:
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>${lombok.version}</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+#### 1.1.7.2. Mapping in Java
+
+##### 1.1.7.2.1. Dozer
+
+Dozer là một mapping framework sử dụng đệ quy để sao chép dữ liệu từ đối tượng này sang đối tượng khác.
+
+The framework is able not only to copy properties between the beans, but it can also automatically convert between different types.
+
+```xml
+<dependency>
+    <groupId>net.sf.dozer</groupId>
+    <artifactId>dozer</artifactId>
+    <version>5.5.1</version>
+</dependency>
+```
+
+##### 1.1.7.2.2. Orika
+
+Orika là một khung ánh xạ bean to bean sao chép đệ quy dữ liệu từ đối tượng này sang đối tượng khác.
+
+Nguyên lý chung khá giống với Dozer. Orika sử dụng bytecode generation. Điều này cho phép tạo ra các trình ánh xạ nhanh hơn với chi phí tối thiểu.
+
+```xml
+<dependency>
+    <groupId>ma.glasnost.orika</groupId>
+    <artifactId>orika-core</artifactId>
+    <version>1.5.2</version>
+</dependency>
+```
+
+##### 1.1.7.2.3. MapStruct
+
+MapStruct is a code generator that generates bean mapper classes automatically.
+
+Có khả năng convert các data type khác nhau
+
+```xml
+<dependency>3
+    <groupId>org.mapstruct</groupId>
+    <artifactId>mapstruct-processor</artifactId>
+    <version>1.2.0.Final</version>
+</dependency>
+```
+
+##### 1.1.7.2.4. Model Mapper
+
+Là một framework hướng tới sự đơn giản object mapping, bằng việc xác định how object map với nhau dựa trên quy ước convention. Cung cấp type-safe and refactoring-safe API.
+
+```xml
+<dependency>
+  <groupId>org.modelmapper</groupId>
+  <artifactId>modelmapper</artifactId>
+  <version>1.1.0</version>
+</dependency>
+```
+
+##### 1.1.7.2.5. JMapper
+
+JMapper is the mapping framework that aims to provide easy-to-use, high-performance mapping between Java Beans.
+
+
+The framework aims to apply DRY principle using Annotations and relational mapping.
+
+The framework allows for different ways of configuration: annotation-based, XML or API-based.
+
+```xml
+<dependency>
+    <groupId>com.googlecode.jmapper-framework</groupId>
+    <artifactId>jmapper-core</artifactId>
+    <version>1.6.0.1</version>
+</dependency>
+```
+
+##### 1.1.7.2.6. Compare
+
+Average time 
+
+![](https://www.baeldung.com/wp-content/uploads/2018/06/AVGTRealLife.png)
+
+Throughput
+
+![](https://www.baeldung.com/wp-content/uploads/2018/06/THRPTRealLife.png)
+
+
+## 1.2. Bài tập
+
+### 1.2.1. Yêu cầu chức năng  
 
 [Trò chơi Oẳn Tù Tì](https://en.wikipedia.org/wiki/Rock%E2%80%93paper%E2%80%93scissors)  
  - Thiết kế hệ thống cung cấp APIs cho gameplay của trò chơi Oẳn tù tì với máy. Luật chơi như sau:
@@ -1505,12 +2023,12 @@ JDK (là viết tắt của Java Development Kit) bao gồm JRE và các Develop
  - Cung cấp API truy vấn lịch sử tất cả game + lượt chơi của user.
  - Cung cấp API liệt kê danh sách 100 user có tỉ lệ thắng cao nhất.
 
-### Yêu cầu về mặt thiết kế  
+### 1.2.2. Yêu cầu về mặt thiết kế  
  - Sequence diagram cho tất cả các API/function  
  - Tài liệu mô tả architecture của hệ thống  
  - Tài liệu mô tả thiết kế lưu trữ data model của hệ thống  
 
-### Yêu cầu Kĩ Thuật  
+### 1.2.3. Yêu cầu Kĩ Thuật  
  - Cung cấp API cho cả 2 protocol (tránh code duplication):  
    + HTTP với Json
    + gRPC với Protobuf
@@ -1520,7 +2038,7 @@ JDK (là viết tắt của Java Development Kit) bao gồm JRE và các Develop
  - Thực hiện Performance Test cho API sử dụng Locust, JMeter hoặc công cụ tương tự.
  - Ghi log cho tất cả lời gọi tới API. Đối với trường hợp lỗi hệ thống phải log ra được stacktrace và nguyên nhân của lỗi.
 
-## Tham khảo thêm  
+## 1.3. Tham khảo thêm  
 
 Principles
  - [SOLID](https://medium.com/@mari_azevedo/s-o-l-i-d-principles-what-are-they-and-why-projects-should-use-them-50b85e4aa8b6)  
@@ -1538,7 +2056,7 @@ Non-Blocking IO
  - [Netty Best Practices](http://normanmaurer.me/presentations/2014-facebook-eng-netty/slides.html)
  - [Netty in Action](http://pdf.th7.cn/down/files/1603/Netty%20in%20Action.pdf)  
 
-# Nguồn tham khảo
+# 2. Nguồn tham khảo
 
 https://gpcoder.com/5202-unit-testing-trong-phat-trien-phan-mem-hien-dai/
 
