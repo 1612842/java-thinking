@@ -120,6 +120,10 @@ Mỗi ván Game có nhiều Turn, mỗi Turn chỉ thuộc duy nhất 1 ván Gam
 
 ![](media/report.png)
 
+-   After cache
+
+![](media/aftercache.png)
+
 # 8. Deployment
 -   Add dependency vào pom.xml
 

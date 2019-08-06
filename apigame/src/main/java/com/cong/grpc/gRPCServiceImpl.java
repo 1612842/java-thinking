@@ -31,6 +31,7 @@ public class gRPCServiceImpl extends gRPCServiceGrpc.gRPCServiceImplBase {
 
     private static final Logger logger = LoggerFactory.getLogger(gRPCServiceImpl.class);
 
+
     @Autowired
     AuthenticationManager authenticationManager;
 

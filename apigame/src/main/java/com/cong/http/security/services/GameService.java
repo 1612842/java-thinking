@@ -12,15 +12,19 @@ import com.cong.http.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Long.valueOf;
 
 @Service
 public class GameService {
     private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 
+    @Autowired
+    private RedisTemplate redisCache;
 
     @Autowired
     GameRepository gameRepository;
@@ -58,9 +62,27 @@ public class GameService {
         logger.info("Round addRoundToGame(User user, Round round)");
 
         logger.info("User id: "+user.getId());
-        List<Game> gameUndone = gameRepository.findByUserIdAndResult(user.getId(), "-");
 
+        Object cache = redisCache.opsForValue().get("gameUndoneIdOf"+user.getUsername());
+
+        List<Game> gameUndone = new ArrayList<Game>();;
+        Optional<Game> curGameOp;
         Game curGame;
+
+        if (Objects.isNull(cache)|| Objects.requireNonNull(cache).toString().equals("-1")){
+            logger.info("No gameUndone of "+user.getUsername());
+            if (Objects.isNull(cache)) {
+                gameUndone = gameRepository.findByUserIdAndResult(user.getId(), "-");
+                logger.info("Query from database to get game undone");
+            }
+        }else {
+            logger.info("Exist gameUndone of "+user.getUsername()+": "+cache);
+            curGameOp = gameRepository.findById(valueOf(cache.toString()));
+            gameUndone.add(curGameOp.get());
+            logger.info("Get game undone from cache with gameUndoneSize: "+gameUndone.size());
+        }
+
+        logger.info("Num game undone:"+gameUndone.size());
         if (gameUndone.size() == 0) {
             //game
             Game game = new Game();
@@ -80,6 +102,12 @@ public class GameService {
         if (round.getResult() == "W" || round.getResult() == "L") {
             curGame.setTimeEnd(new Date());
             curGame.setResult(round.getResult());
+            redisCache.opsForValue().set("gameUndoneIdOf"+user.getUsername(),"-1");
+            logger.info("Set cache of undone game id to -1");
+        }else
+        {
+            redisCache.opsForValue().set("gameUndoneIdOf"+user.getUsername(),curGame.getId());
+            logger.info("Cached: key:gameUndoneIdOf"+user.getUsername()+" value:"+ redisCache.opsForValue().get("gameUndoneIdOf"+user.getUsername()));
         }
 
         logger.info("CurrentGame: "+curGame.getId()+ " "+curGame.getResult()+" "+curGame.getUser().getUsername());
