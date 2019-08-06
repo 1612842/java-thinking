@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+package com.cong.api.grpc;
+
+message SigninRequest{
+    string username = 1;
+    string password = 2;
+}
+
+message SignupRequest{
+    string username = 1;
+    string password = 2;
+    string email = 3;
+    string name = 4;
+}
+
+message TokenMessage{
+    string token = 1;
+    string type = 2;
+}
+
+message SigninResponse{
+    string status = 1;
+    string message = 2;
+    TokenMessage data = 3;
+}
+
+message SignupResponse{
+    string status = 1;
+    string message = 2;
+}
+
+message ChoiceRequest{
+    int32 choice = 1;
+    string token = 2;
+}
+
+message RoundRPC{
+    int32 machineChoice = 1;
+    int32 userChoice = 2;
+    string result = 3;
+}
+
+message ChoiceResponse{
+    string status = 1;
+    string message = 2;
+    RoundRPC data = 3;
+}
+
+message GameRPC{
+    int64 id = 1;
+    string createdAt = 2;
+    repeated RoundRPC rounds = 3;
+}
+
+message HistoryResponse{
+    string status = 1;
+    string message = 2;
+    repeated GameRPC data = 3;
+}
+
+message RankingResponse{
+    string status = 1;
+    string message = 2;
+    repeated InfoTopUser data = 3;
+}
+
+message InfoTopUser{
+    string username = 1;
+    double winRate = 2;
+}
+
+message MyMessage{
+    string token = 1;
+}
+
+service gRPCService {
+    rpc authenticateUser (SigninRequest) returns (SigninResponse);
+    rpc registerUser (SignupRequest) returns (SignupResponse);
+    rpc playGame (ChoiceRequest) returns (ChoiceResponse);
+    rpc getHistory (MyMessage) returns (HistoryResponse);
+    rpc getRanking (MyMessage) returns (RankingResponse);
+}

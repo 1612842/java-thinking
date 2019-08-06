@@ -8,6 +8,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageViewManager">
+    <option name="myAutoScrollToSource" value="true" />
+    <option name="myElementSize" value="24" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -17,6 +21,11 @@
     </option>
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="workOffline" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
@@ -25,16 +34,25 @@
   </component>
   <component name="ProjectId" id="1OfqNqLErY6AyGSdt4U8lJYL7by" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/Videos/gRpc-spring-boot-example/grpc-spring-boot-consul/grpc-spring-boot-server" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/cong/api" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Pictures/grpc-java/grpc-java-hello-world" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.cong" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cong.api.message.response" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compile" />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -48,13 +66,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.SpringBootApiGameApplication">
     <configuration name="SpringBootApiGameApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cong.api.SpringBootApiGameApplication" />
+      <option name="MAIN_CLASS_NAME" value="com.cong.SpringBootApiGameApplication" />
       <module name="apigame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cong.api.*" />
+          <option name="PATTERN" value="com.cong.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -62,9 +80,74 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AuthRestAPIsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apigame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cong.http.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cong.http.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.cong.http.controller.AuthRestAPIsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameRestAPIsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apigame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cong.http.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cong.http.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.cong.http.controller.GameRestAPIsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gRPCServiceImplTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apigame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cong.grpc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cong.grpc" />
+      <option name="MAIN_CLASS_NAME" value="com.cong.grpc.gRPCServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gRPCServiceImplTest.testPlayGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apigame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cong.grpc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cong.grpc" />
+      <option name="MAIN_CLASS_NAME" value="com.cong.grpc.gRPCServiceImplTest" />
+      <option name="METHOD_NAME" value="testPlayGame" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SpringBootApiGameApplication" />
+        <item itemvalue="JUnit.gRPCServiceImplTest (1)" />
+        <item itemvalue="JUnit.GameRestAPIsTest" />
+        <item itemvalue="JUnit.AuthRestAPIsTest" />
+        <item itemvalue="JUnit.gRPCServiceImplTest.testPlayGame" />
       </list>
     </recent_temporary>
   </component>
@@ -80,5 +163,34 @@
       <updated>1564378961371</updated>
     </task>
     <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/apigame$GameServiceTest.ic" NAME="GameServiceTest Coverage Results" MODIFIED="1564977066339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.security.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$GameRestAPIsTest.ic" NAME="GameRestAPIsTest Coverage Results" MODIFIED="1565026277642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$GameRestAPIsTest_testGetHistory.ic" NAME="GameRestAPIsTest.testGetHistory Coverage Results" MODIFIED="1564997209048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$GameRestAPIsTest_testPlayGame.ic" NAME="GameRestAPIsTest.testPlayGame Coverage Results" MODIFIED="1564997658632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$GameRestAPIsTest_GetTopUserRanking_thenReturnJsonArray__1_.ic" NAME="GameRestAPIsTest.GetTopUserRanking_thenReturnJsonArray (1) Coverage Results" MODIFIED="1564974523641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$gRPCServiceImplTest__1_.ic" NAME="gRPCServiceImplTest (1) Coverage Results" MODIFIED="1565026658150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.grpc.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$AuthRestAPIsTest.ic" NAME="AuthRestAPIsTest Coverage Results" MODIFIED="1565026258296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$gRPCServiceImplTest.ic" NAME="gRPCServiceImplTest Coverage Results" MODIFIED="1565001606189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.grpc.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/apigame$GameRestAPIsTest_testTop100Users.ic" NAME="GameRestAPIsTest.testTop100Users Coverage Results" MODIFIED="1564997415880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cong.http.controller.*</FILTER>
+    </SUITE>
   </component>
 </project>
